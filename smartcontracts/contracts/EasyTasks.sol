@@ -3,8 +3,9 @@ pragma solidity >0.8.18;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract EasyTasks is Ownable {
+contract EasyTasks is Ownable, ReentrancyGuard {
 
     IERC20 public usdcToken;
 
@@ -48,7 +49,7 @@ contract EasyTasks is Ownable {
     }
 
     // Create a new task
-    function createTask(string memory _title, string memory _description, TaskType _taskType, uint256 _budget) external {
+    function createTask(string memory _title, string memory _description, TaskType _taskType, uint256 _budget) external nonReentrant {
         require(_budget > 0, "Budget must be greater than 0");
 
         taskCounter++;
@@ -68,7 +69,7 @@ contract EasyTasks is Ownable {
     }
 
     // Submit an offer for a task
-    function submitOffer(uint256 _taskId, uint256 _offerAmount) external {
+    function submitOffer(uint256 _taskId, uint256 _offerAmount) external nonReentrant {
         require(_offerAmount > 0, "Offer amount must be greater than 0");
         Task memory task = tasks[_taskId];
         require(task.creator != address(0), "Task does not exist");
@@ -83,7 +84,7 @@ contract EasyTasks is Ownable {
     }
 
     // Accept an offer for a task
-    function acceptOffer(uint256 _taskId, uint256 _offerIndex) external {
+    function acceptOffer(uint256 _taskId, uint256 _offerIndex) external nonReentrant {
         Task storage task = tasks[_taskId];
         require(msg.sender == task.creator, "Only task creator can accept offers");
         require(!task.isOfferAccepted, "Offer already accepted for this task");
@@ -99,7 +100,7 @@ contract EasyTasks is Ownable {
     }
 
     // Mark task as completed and pay USDC
-    function markTaskAsCompleted(uint256 _taskId) external {
+    function markTaskAsCompleted(uint256 _taskId) external nonReentrant {
         Task storage task = tasks[_taskId];
         require(msg.sender == task.creator, "Only task creator can mark as completed");
         require(task.isOfferAccepted, "Offer must be accepted first");

@@ -1,0 +1,41 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: EasyTasks
+    network: sepolia
+    source:
+      address: "0x6815c22a930bcd4e272f24adf07ec5706ce8caa6"
+      abi: EasyTasks
+      startBlock: 6728571
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OfferAccepted
+        - OfferSubmitted
+        - OwnershipTransferred
+        - PaymentSent
+        - TaskCompleted
+        - TaskCreated
+      abis:
+        - name: EasyTasks
+          file: ./abis/EasyTasks.json
+      eventHandlers:
+        - event: OfferAccepted(indexed uint256,address,uint256)
+          handler: handleOfferAccepted
+        - event: OfferSubmitted(indexed uint256,address,uint256)
+          handler: handleOfferSubmitted
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: PaymentSent(address,address,uint256)
+          handler: handlePaymentSent
+        - event: TaskCompleted(indexed uint256,address)
+          handler: handleTaskCompleted
+        - event: TaskCreated(indexed uint256,indexed address,string,uint256)
+          handler: handleTaskCreated
+      file: ./src/easy-tasks.ts

@@ -1,15 +1,17 @@
 // /controllers/userController.js
-// const User = require('../models/userModel');
 import User from "../models/User.js";
+import jwt from 'jsonwebtoken';
+import { verifyCloudProof } from '@worldcoin/idkit'
+
+
+
 // Create a new user
 export const createUser = async (req, res) => {
   try {
     console.log("creating user", req.body);
-    const { name, email, age } = req.body;
-
-    const newUser = new User({ name, email, age });
-    console.log('user created');
-    const savedUser = await newUser.save();
+    const { name, email, role, pincode } = req.body;
+    //role: "user" or "earner"
+    const savedUser = await User.findOneAndUpdate({ email }, {name, role, pincode}, { upsert: true, new: true });
     console.log('user saved');
     res.status(201).json(savedUser);
   } catch (error) {
@@ -30,9 +32,48 @@ export const getAllUsers = async (req, res) => {
 export const userSignUpOrSignIn = async (req, res) => {
     try {
         const {token} = req.body;
-        res.status(200).json({token})
+        const decodedToken = jwt.decode(token);
+        console.log("decodedToken",decodedToken);
+        if(!decodedToken) {
+            res.status(500).json({message: "Error Signing up or Signing In User"});
+        }
+        const email = decodedToken.email;
+        const walletAddress = decodedToken.verified_credentials[0].address;
+        const user = await User.findOne({email}).lean();
+        if(!user) {
+            const newUser = new User({email, walletAddress});
+            await newUser.save();
+            res.status(200).json({isNewUser: true, email, walletAddress});
+        } else {
+            res.status(200).json({isNewUser: false, ...user});
+        }
     } catch (error) {
+        console.log("error", error);
         res.status(500).json({message: "Error Signing up or Signing In User"});
     }
 }
 
+
+export const verifyProof = async(req, res) => {
+  try {
+    const proof = req.body
+    const app_id = process.env.WORLD_APP_ID
+    const action = process.env.WORLD_APP_ACTION_ID
+    console.log(process.env.WORLD_APP_ID, process.env.WORLD_APP_ACTION_ID);
+    const verifyRes = await verifyCloudProof(proof, app_id, action)
+
+    if (verifyRes.success) {
+        // This is where you should perform backend actions if the verification succeeds
+        // Such as, setting a user as "verified" in a database
+        res.status(200).send(verifyRes);
+    } else {
+        // This is where you should handle errors from the World ID /verify endpoint. 
+        // Usually these errors are due to a user having already verified.
+        res.status(400).send(verifyRes);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error verifying proof', error });
+  }
+	
+};

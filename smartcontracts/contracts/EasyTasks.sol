@@ -24,7 +24,6 @@ contract EasyTasks is Ownable, ReentrancyGuard {
         bool isOfferAccepted;
         address acceptedOfferer;
         uint256 acceptedAmount;
-
     }
 
     struct Offer {
@@ -38,11 +37,11 @@ contract EasyTasks is Ownable, ReentrancyGuard {
     mapping(uint256 => Offer[]) public taskOffers;
     mapping(address => uint256[]) public  payments; 
 
-    event TaskCreated(uint256 indexed  taskId, address indexed  creator, string description, uint256 budget);
+    event TaskCreated(uint256 indexed  taskId, address indexed  creator, string title, TaskType taskType,  string description, uint256 budget);
     event OfferSubmitted(uint256 indexed  taskId, address offerer, uint256 offerAmount);
     event OfferAccepted(uint256 indexed  taskId, address offerer, uint256 acceptedAmount);
     event TaskCompleted(uint256 indexed  taskId, address offerer);
-    event PaymentSent(address from, address to, uint256 amount);
+    event PaymentSent(uint256 indexed taskId, address from, address to, uint256 amount);
 
     constructor(address _usdcTokenAddress) Ownable(msg.sender) {
         usdcToken = IERC20(_usdcTokenAddress); // USDC ERC20 token address
@@ -65,7 +64,7 @@ contract EasyTasks is Ownable, ReentrancyGuard {
             acceptedAmount: 0
         });
         allTasks.push(taskCounter);
-        emit TaskCreated(taskCounter, msg.sender, _description, _budget);
+        emit TaskCreated(taskCounter, msg.sender, _title, _taskType, _description, _budget);
     }
 
     // Submit an offer for a task
@@ -112,7 +111,7 @@ contract EasyTasks is Ownable, ReentrancyGuard {
         usdcToken.transfer(task.acceptedOfferer, task.acceptedAmount);
         payments[task.acceptedOfferer].push(task.acceptedAmount);
         emit TaskCompleted(_taskId, task.acceptedOfferer);
-        emit PaymentSent(task.creator, task.acceptedOfferer, task.budget);
+        emit PaymentSent(_taskId, task.creator, task.acceptedOfferer, task.budget);
     }
 
     function getAllTasks() external view returns(uint256[] memory) {

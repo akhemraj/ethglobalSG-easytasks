@@ -3,7 +3,7 @@
 import mongoose from "mongoose";
 
 export default function connectDB() {
-  const url = "mongodb+srv://ethSingaporeWinner:wewillwinethsingapore@eth-singapore.j33le.mongodb.net/";
+  const url = process.env.DB_URL;
 
   try {
     mongoose.connect(url);
@@ -13,11 +13,11 @@ export default function connectDB() {
   }
   const dbConnection = mongoose.connection;
   dbConnection.once("open", (_) => {
-    console.log(`Database connected: ${url}`);
+    console.log(`Database connected`);
   });
 
   dbConnection.on("error", (err) => {
-    console.error(`connection error: ${err}`);
+    console.error(`Database connection error`);
   });
   return;
 }

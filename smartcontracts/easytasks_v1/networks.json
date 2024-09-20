@@ -1,0 +1,8 @@
+{
+  "sepolia": {
+    "EasyTasks": {
+      "address": "0x093873ae318faef01285ee689aa21e2809f99c3b",
+      "startBlock": 6728913
+    }
+  }
+}

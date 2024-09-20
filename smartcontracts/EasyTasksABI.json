@@ -33,6 +33,11 @@
       "type": "error"
     },
     {
+      "inputs": [],
+      "name": "ReentrancyGuardReentrantCall",
+      "type": "error"
+    },
+    {
       "anonymous": false,
       "inputs": [
         {
@@ -105,6 +110,12 @@
       "anonymous": false,
       "inputs": [
         {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "taskId",
+          "type": "uint256"
+        },
+        {
           "indexed": false,
           "internalType": "address",
           "name": "from",
@@ -159,6 +170,18 @@
           "internalType": "address",
           "name": "creator",
           "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum EasyTasks.TaskType",
+          "name": "taskType",
+          "type": "uint8"
         },
         {
           "indexed": false,

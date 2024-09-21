@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Layout from "./Layout";
+import React from 'react'
+import FetchOffers from './queries/fetchOffers'
+import FetchTasks from './queries/fetchTasks'
 
-const Dashboard = () => {
-  const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState("need-help");
-
+export default function Dashboard() {
   return (
-    <Layout>
-      <div>user verified</div>
-    </Layout>
-  );
-};
-
-export default Dashboard;
+    <>
+      <FetchOffers/>
+      <FetchTasks/>
+    </>
+  )
+}

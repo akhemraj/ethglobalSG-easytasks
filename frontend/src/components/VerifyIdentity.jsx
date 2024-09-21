@@ -6,21 +6,27 @@ import Layout from "../components/Layout";
 import { IDKitWidget, VerificationLevel } from "@worldcoin/idkit";
 import useWalletStore from "../store/wallet.jsx";
 
-import contractService from '../service/contractService.js';
+import contractService from "../service/contractService.js";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 const VerifyIdentity = () => {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
 
-  const {primaryWallet} = useDynamicContext();
-  
+  const { primaryWallet } = useDynamicContext();
 
   const handleCreateTask = async () => {
     const walletClient = await primaryWallet.getWalletClient();
     const account = await walletClient.account;
     const publicClient = await primaryWallet.getPublicClient();
-    const response = await contractService.createTask(publicClient, walletClient, "t1", "d1", 1, "100");
+    const response = await contractService.createTask(
+      publicClient,
+      walletClient,
+      "t1",
+      "d1",
+      1,
+      "100"
+    );
 
     primaryWallet.isConnected().then((value) => {
       console.log(value);
@@ -32,12 +38,14 @@ const VerifyIdentity = () => {
     // Extract proof and email from the data object (adjust based on actual data structure)
 
     try {
-      const response = await axios.post('https://ethglobalsg-easytasks-be-5b1fa77ae872.herokuapp.com/api/verifyProof', {
-        proof: data, // Send proof in request body
-         // Send email in request body
-         email
-      });
-  
+      const response = await axios.post(
+        "https://ethglobalsg-easytasks-be-5b1fa77ae872.herokuapp.com/api/verifyProof",
+        {
+          proof: data, // Send proof in request body
+          // Send email in request body
+          email,
+        }
+      );
 
       // If the request is successful
       console.log("Proof verification successful:", response.data);
@@ -97,11 +105,6 @@ const VerifyIdentity = () => {
                     </button>
                   )}
                 </IDKitWidget>
-
-                <button onClick={handleCreateTask}>
-                  {" "}
-                  click this button sample
-                </button>
               </div>
             </div>
           </div>

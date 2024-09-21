@@ -1,10 +1,45 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
+import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
+import axios from "axios";
 
 const TaskableWelcome = () => {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("need-help");
+
+  const handleClick = async () => {
+    const authToken = localStorage.getItem("dynamic_authentication_token");
+    console.log("sending token to backend", authToken);
+
+    const response = await axios.post(
+      "https://ethglobalsg-easytasks-be-5b1fa77ae872.herokuapp.com/api/signUpOrSignIn",
+      {
+        token: authToken, // Send proof in request body
+        // Send email in request body
+      }
+    );
+
+    if (response.status === 200) {
+      console.log("RESPONSE:", response);
+
+      localStorage.setItem("email", response.data.email);
+
+      const { isNewUser } = response.data.isNewUser;
+      if (isNewUser === true) {
+        // If user does not have a profile: /profile
+        navigate("/profile");
+      } else if (response.data.isVerified) {
+        // If user has profile and verfied: /dashboard
+        navigate("/dashboard");
+      } else {
+        // If user has profile but not verified: /verify
+        navigate("/verify");
+      }
+    } else {
+      console.log("error occurred while calling api");
+    }
+  };
 
   return (
     <Layout>
@@ -16,7 +51,9 @@ const TaskableWelcome = () => {
           fontFamily: "Manrope, 'Noto Sans', sans-serif",
         }}
       >
-        <div className="layout-container flex h-full grow flex-col">
+        <div />
+
+        <div className="layout-container flex h-full grow flex-col content-center	">
           <div className="px-40 flex flex-1 justify-center py-5">
             <div className="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
               <div className="@container">
@@ -38,43 +75,8 @@ const TaskableWelcome = () => {
                 tasks and earning money. Which of the following best describes
                 you?
               </p>
-              <div className="flex flex-col gap-3 p-4">
-                <label className="flex items-center gap-4 rounded-xl border border-solid border-[#cfdee7] p-[15px] flex-row-reverse">
-                  <input
-                    type="radio"
-                    className="h-5 w-5 border-2 border-[#cfdee7] bg-transparent text-transparent checked:border-[#209cee] checked:bg-[image:var(--radio-dot-svg)] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-[#209cee]"
-                    name="userType"
-                    value="need-help"
-                    checked={selectedOption === "need-help"}
-                    onChange={() => setSelectedOption("need-help")}
-                  />
-                  <div className="flex grow flex-col">
-                    <p className="text-[#0d161b] text-sm font-medium leading-normal">
-                      I need help with tasks
-                    </p>
-                  </div>
-                </label>
-                <label className="flex items-center gap-4 rounded-xl border border-solid border-[#cfdee7] p-[15px] flex-row-reverse">
-                  <input
-                    type="radio"
-                    className="h-5 w-5 border-2 border-[#cfdee7] bg-transparent text-transparent checked:border-[#209cee] checked:bg-[image:var(--radio-dot-svg)] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-[#209cee]"
-                    name="userType"
-                    value="want-to-help"
-                    checked={selectedOption === "want-to-help"}
-                    onChange={() => setSelectedOption("want-to-help")}
-                  />
-                  <div className="flex grow flex-col">
-                    <p className="text-[#0d161b] text-sm font-medium leading-normal">
-                      I want to help with tasks
-                    </p>
-                  </div>
-                </label>
-                <button
-                  onClick={() => navigate("/profile")}
-                  className="bg-[#209cee] hover:bg-[#1a7fbf] text-white font-bold py-2 px-4 rounded-xl transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#209cee] focus:ring-opacity-50"
-                >
-                  Create Profile
-                </button>
+              <div onClick={handleClick}>
+                <DynamicWidget class="content-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
               </div>
             </div>
           </div>

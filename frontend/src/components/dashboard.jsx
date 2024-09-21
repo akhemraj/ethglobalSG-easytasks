@@ -8,7 +8,7 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div>user verified</div>
+      <h1>user verified</h1>
     </Layout>
   );
 };

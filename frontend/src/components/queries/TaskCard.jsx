@@ -9,6 +9,10 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
 const TaskCard = ({ title, description, taskType, budget, isCreator }) => {
+  const handleClick = () => {
+    console.log("Sending offer...");
+  };
+
   return (
     <Card style={{ maxWidth: 345, margin: "20px auto" }}>
       <CardContent>
@@ -35,13 +39,17 @@ const TaskCard = ({ title, description, taskType, budget, isCreator }) => {
         </Typography>
       </CardContent>
 
-      {!isCreator && (
-        <CardActions>
-          <Button size="small" color="success">
-            Accept
+      <CardActions>
+        {isCreator ? (
+          <Button size="small" color="success" onClick={handleClick}>
+            Accept Offer
           </Button>
-        </CardActions>
-      )}
+        ) : (
+          <Button size="small" color="secondary" onClick={handleClick}>
+            Send Offer
+          </Button>
+        )}
+      </CardActions>
     </Card>
   );
 };

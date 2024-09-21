@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import Alert from "@mui/material/Alert";
 
 const style = {
   position: "absolute",
@@ -20,22 +20,23 @@ const style = {
 };
 
 export default function AcceptOfferModal({ offers }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [acceptedId, setAcceptedId] = useState("");
+  const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleClick = () => {
-    console.log("Accepting offer...");
+    console.log(`Initiating payment for offer ${acceptedId}...`);
+    setIsPaymentSuccess(true);
   };
 
   const [value, setValue] = useState("");
 
-  const handleChange = (event) => {
-    console.log("Accepting offer...");
-    setValue(event.target.value);
+  const acceptedOffer = (offerId) => {
+    setAcceptedId(offerId);
+    alert(`Offer ${offerId} accepted!`);
   };
-
-  const acceptedOffer = (offerId) => {};
 
   return (
     <div>
@@ -69,6 +70,10 @@ export default function AcceptOfferModal({ offers }) {
               <Button className="mt-3" color="success" onClick={handleClick}>
                 Initiate Payment
               </Button>
+
+              {isPaymentSuccess && (
+                <Alert severity="success">Payment successful.</Alert>
+              )}
             </form>
           </Box>
         </Fade>

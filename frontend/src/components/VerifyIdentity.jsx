@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
+import useWalletStore from '../store/wallet.jsx';
 
 
 const VerifyIdentity = () => {
   const navigate = useNavigate();
   const email = localStorage.getItem('email');
+  const wallet = useWalletStore((state) => state.getWallet());
+  console.log('wallet is: ', wallet, window.dynamicWalletClient);
+
   const onSuccess = async (data) => {
     console.log("world id verification success", data);
     // Extract proof and email from the data object (adjust based on actual data structure)
-    
+   
   
     try {
       const response = await axios.post('http://localhost:8000/api/verifyProof', {

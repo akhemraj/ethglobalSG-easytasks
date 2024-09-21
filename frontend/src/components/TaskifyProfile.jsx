@@ -9,11 +9,16 @@ import {
 import { EthersExtension } from "@dynamic-labs/ethers-v5";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import axios from 'axios';
+import useWalletStore from '../store/wallet.jsx';
 const TaskifyProfile = () => {
-
-
-
   const navigate = useNavigate();
+
+  const setWalletClient = useWalletStore((state) => {
+    console.log('state: ', state);
+    return state.setWalletClient
+  });
+  const setPublicClient = useWalletStore((state) => state.setPublicClient);
+
 
   const handleClick = async () => {
     const authToken = localStorage.getItem('dynamic_authentication_token');
@@ -65,13 +70,19 @@ const TaskifyProfile = () => {
         walletConnectors: [EthereumWalletConnectors],
         events: {
           onAuthSuccess: async(args) => {
-            console.log('onAuthSuccess was called', args);
+            // console.log('onAuthSuccess was called', args);
             const {primaryWallet, user} = args;
             //create contract instance using ethers
             
             const publicClient = await primaryWallet.getPublicClient();
             const walletClient = await primaryWallet.getWalletClient();
-            console.log("walletClient", walletClient);
+            // console.log(setWalletClient, " < set wakket client");
+            setWalletClient(walletClient); // Check if this actually sets the wallet correctly
+            setPublicClient(publicClient);
+            
+            // Logging to ensure correct wallet data
+            console.log("Wallet Client: ", walletClient);
+            console.log("Public Client: ", publicClient);
 
             // you can get the jwt by calling the getAuthToken helper function
           }

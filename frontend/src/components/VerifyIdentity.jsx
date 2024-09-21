@@ -6,7 +6,7 @@ import Layout from "../components/Layout";
 import { IDKitWidget, VerificationLevel } from "@worldcoin/idkit";
 import useWalletStore from "../store/wallet.jsx";
 
-import apiService from "../service/apiService.js";
+import contractService from '../service/contractService.js';
 
 const VerifyIdentity = () => {
   const navigate = useNavigate();
@@ -15,22 +15,20 @@ const VerifyIdentity = () => {
   // console.log('wallet is: ', wallet, window.dynamicWalletClient);
 
   const handleClickButton = async () => {
-    console.log("button clicked");
-    const response = await apiService.signInUser();
-  };
+    console.log('button clicked');
+    const response = await contractService.createTask();
+  }
   const onSuccess = async (data) => {
     console.log("world id verification success", data);
     // Extract proof and email from the data object (adjust based on actual data structure)
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/verifyProof",
-        {
-          proof: data, // Send proof in request body
-          // Send email in request body
-          email,
-        }
-      );
+      const response = await axios.post('https://ethglobalsg-easytasks-be-5b1fa77ae872.herokuapp.com/api/verifyProof', {
+        proof: data, // Send proof in request body
+         // Send email in request body
+         email
+      });
+  
 
       // If the request is successful
       console.log("Proof verification successful:", response.data);

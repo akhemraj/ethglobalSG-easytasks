@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
+import FetchTasks from "./queries/fetchTasks";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -20,7 +21,6 @@ const Dashboard = () => {
   };
 
   return (
-<<<<<<< HEAD
     <Layout>
       <div className="relative flex size-md min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden font-['Manrope','Noto_Sans',sans-serif]">
         <div className="layout-container flex h-full grow flex-col items-center">
@@ -118,9 +118,9 @@ const Dashboard = () => {
               Create Task
             </button>
           </form>
-
           <h2 class="text-lg font-semibold mt-6">Browse</h2>
           {/* Display list of tasks here */}
+          <FetchTasks />
         </div>
       </div>
     </Layout>
@@ -128,11 +128,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-=======
-    <>
-      <FetchOffers/>
-      
-    </>
-  )
-}
->>>>>>> b244317 (merge changes)

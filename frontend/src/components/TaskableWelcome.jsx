@@ -77,7 +77,7 @@ const TaskableWelcome = () => {
                 tasks and earning money. Which of the following best describes
                 you?
               </p>
-              <div onClick={handleClick}>
+              <div>
                 <DynamicWidget class="content-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
               </div>
             </div>

@@ -40,7 +40,7 @@ const TaskCard = ({ id, title, description, taskType, budget, isCreator }) => {
         {isCreator ? (
           <SubmittedOfferByTaskId taskId={id} />
         ) : (
-          <SendOfferModal />
+          <SendOfferModal taskId={id}/>
         )}
       </CardActions>
     </Card>

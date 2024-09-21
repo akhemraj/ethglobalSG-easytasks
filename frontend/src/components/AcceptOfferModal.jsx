@@ -6,6 +6,14 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
+import {
+  DynamicContextProvider,
+  DynamicWidget,
+} from "@dynamic-labs/sdk-react-core";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import contractService from "../service/contractService";
+
+
 
 const style = {
   position: "absolute",
@@ -19,7 +27,7 @@ const style = {
   p: 4,
 };
 
-export default function AcceptOfferModal({ offers }) {
+export default function AcceptOfferModal({ taskId, offers }) {
   const [open, setOpen] = useState(false);
   const [acceptedId, setAcceptedId] = useState("");
   const [isPaymentSuccess, setIsPaymentSuccess] = useState(false);
@@ -30,10 +38,28 @@ export default function AcceptOfferModal({ offers }) {
     console.log(`Initiating payment for offer ${acceptedId}...`);
     setIsPaymentSuccess(true);
   };
+  const { primaryWallet } = useDynamicContext();
 
-  const acceptedOffer = (offerId) => {
+  const acceptedOffer = async (offerId) => {
     setAcceptedId(offerId);
     alert(`Offer ${offerId} accepted!`);
+
+    const walletClient = await primaryWallet.getWalletClient();
+    const account = await walletClient.account;
+    const publicClient = await primaryWallet.getPublicClient();
+    const response = await contractService.acceptOffer(
+      publicClient,
+      walletClient,
+     taskId,
+     offerId
+    );
+
+    primaryWallet.isConnected().then((value) => {
+      console.log(value);
+      console.log("WE ARE CONNECTED");
+    });
+
+
   };
 
   return (
@@ -59,7 +85,7 @@ export default function AcceptOfferModal({ offers }) {
             <form class="w-full max-w-lg flex flex-col items-center">
               {/* DISPLAY OFFERS HERE */}
               {offers.map((item, index) => (
-                <div key={item.id} onClick={() => acceptedOffer(item.id)}>
+                <div key={item.id} onClick={() => acceptedOffer(index)}>
                   <h2>{item.taskId}</h2>
                   <p>Amount: {item.offerAmount}</p>
                 </div>

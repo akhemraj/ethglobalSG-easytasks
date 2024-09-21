@@ -71,7 +71,7 @@ function Tasks(props) {
 
       {/* {data ? <div>{data}</div>: <div> No offers submitted for the task</div> } */}
       {data?.length > 0 ? (
-        <AcceptOfferModal offers={data} />
+        <AcceptOfferModal taskId={props.taskId} offers={data} />
       ) : (
         <p className="text-center">No data available</p>
       )}

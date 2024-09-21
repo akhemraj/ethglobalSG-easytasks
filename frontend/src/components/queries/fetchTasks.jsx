@@ -53,7 +53,7 @@ function Tasks() {
         <div className="flex flex-wrap justify-center items-center gap-12 flex-col sm:flex-row">
           {data?.taskCreateds?.map((q) => (
             <TaskCard
-              id={q.id}
+              id={q.taskId}
               title={q.title}
               description={q.description}
               taskType={q.taskType}

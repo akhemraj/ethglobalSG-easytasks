@@ -26,7 +26,7 @@ const style = {
   p: 4,
 };
 
-export default function SendOfferModal(taskId) {
+export default function SendOfferModal({taskId}) {
 
  
 
@@ -51,14 +51,14 @@ export default function SendOfferModal(taskId) {
     const walletClient = await primaryWallet.getWalletClient();
     const account = await walletClient.account;
     const publicClient = await primaryWallet.getPublicClient();
-    console.log('comes here 1 .... ', primaryWallet);
+    console.log('comes here 1 .... ', primaryWallet, taskId, value);
     const response = await contractService.submitOffer(
       publicClient,
       walletClient,
       taskId,
-      value.toString()
+      value * 1000000,      
     );
-
+    
     primaryWallet.isConnected().then((value) => {
       console.log(value);
       console.log("WE ARE CONNECTED");

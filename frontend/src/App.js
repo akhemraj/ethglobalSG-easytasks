@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import TaskableWelcome from './components/TaskableWelcome';
 import TaskifyProfile from './components/TaskifyProfile'; 
 import VerifyIdentity from './components/VerifyIdentity';
+import Dashboard from './components/dashboard';
 
 // Menubar component
 function MenuBar() {
@@ -30,6 +31,8 @@ export default function App() {
           <Route path="/" element={<TaskableWelcome />} />
           <Route path="/profile" element={<TaskifyProfile />} />
           <Route path="/verify" element={<VerifyIdentity />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+
         </Routes>
       </Router>
     

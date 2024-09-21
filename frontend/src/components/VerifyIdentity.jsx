@@ -3,24 +3,42 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
+import useWalletStore from '../store/wallet.jsx';
 
+import apiService from '../service/apiService.js';
 
 const VerifyIdentity = () => {
   const navigate = useNavigate();
+  const email = localStorage.getItem('email');
+  const wallet = useWalletStore((state) => state.getWallet());
+  // console.log('wallet is: ', wallet, window.dynamicWalletClient);
 
+
+  const handleClickButton = async () => {
+    console.log('button clicked');
+    const response = await apiService.signInUser();
+  }
   const onSuccess = async (data) => {
     console.log("world id verification success", data);
     // Extract proof and email from the data object (adjust based on actual data structure)
-    const { proof, email } = data; 
+    
+    
   
     try {
       const response = await axios.post('http://localhost:8000/api/verifyProof', {
-        proof,  // Send proof in request body
-        email,  // Send email in request body
+        proof: data, // Send proof in request body
+         // Send email in request body
+         email
       });
   
+
+
+      
       // If the request is successful
       console.log('Proof verification successful:', response.data);
+      if (response.status == 200) {
+        navigate('/dashboard');
+      }
       // Handle success (e.g., show a success message or redirect the user)
     } catch (error) {
       // If the request fails
@@ -62,9 +80,9 @@ const VerifyIdentity = () => {
 
                   <IDKitWidget
         app_id="app_staging_e7bc5518aa28f0a211351dbc5210d0ca" // obtained from the Developer Portal
-        action="verify-user-creation" // this is your action id from the Developer Portal
+        action="test-inifinite-verification" // this is your action id from the Developer Portal
         onSuccess={onSuccess} // callback when the modal is closed
-        handleVerify={handleVerify} // optional callback when the proof is received
+        // handleVerify={handleVerify} // optional callback when the proof is received
         verification_level={VerificationLevel.Device}
       >
         {({ open }) => <button 
@@ -73,7 +91,7 @@ const VerifyIdentity = () => {
         onClick={open}><span className="truncate">Verify with World ID</span></button>}
       </IDKitWidget>
 
-
+    <button onClick={handleClickButton}> click this button sample</button>
 
                 
             </div>

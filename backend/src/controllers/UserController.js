@@ -31,9 +31,12 @@ export const getAllUsers = async (req, res) => {
 
 export const userSignUpOrSignIn = async (req, res) => {
     try {
-        const {token} = req.body;
+        let {token} = req.body;
+        // console.log('tokenSingleQuotes : ', token, req.body);
+        token = token.replace(/^"|"$/g, '');
+        // console.log('decoding token', token );
         const decodedToken = jwt.decode(token);
-        console.log("decodedToken",decodedToken);
+        // console.log("decodedToken",decodedToken);
         if(!decodedToken) {
             res.status(500).json({message: "Error Signing up or Signing In User"});
         }
@@ -57,9 +60,10 @@ export const userSignUpOrSignIn = async (req, res) => {
 export const verifyProof = async(req, res) => {
   try {
     const {proof, email} = req.body
+    console.log('the body for verify proof is : ', proof, email, req.body);
     const app_id = process.env.WORLD_APP_ID
     const action = process.env.WORLD_APP_ACTION_ID
-    console.log(process.env.WORLD_APP_ID, process.env.WORLD_APP_ACTION_ID);
+    // console.log(process.env.WORLD_APP_ID, process.env.WORLD_APP_ACTION_ID);
     const verifyRes = await verifyCloudProof(proof, app_id, action)
 
     if (verifyRes.success) {

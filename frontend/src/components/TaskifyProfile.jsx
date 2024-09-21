@@ -63,6 +63,19 @@ const TaskifyProfile = () => {
         environmentId: "ed25802a-53aa-4165-9407-2906d615c0cd",
         walletConnectorExtensions: [EthersExtension],
         walletConnectors: [EthereumWalletConnectors],
+        events: {
+          onAuthSuccess: async(args) => {
+            console.log('onAuthSuccess was called', args);
+            const {primaryWallet, user} = args;
+            //create contract instance using ethers
+            
+            const publicClient = await primaryWallet.getPublicClient();
+            const walletClient = await primaryWallet.getWalletClient();
+            console.log("walletClient", walletClient);
+
+            // you can get the jwt by calling the getAuthToken helper function
+          }
+        }
       }}
     >
       <DynamicWidget />

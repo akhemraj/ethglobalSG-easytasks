@@ -11,13 +11,10 @@ const TaskifyProfile = () => {
     const authToken = localStorage.getItem("dynamic_authentication_token");
     console.log("sending token to backend", authToken);
 
-    const response = await axios.post(
-      "http://localhost:8000/api/signUpOrSignIn",
-      {
-        token: authToken, // Send proof in request body
-        // Send email in request body
-      }
-    );
+    const response = await axios.post('https://ethglobalsg-easytasks-be-5b1fa77ae872.herokuapp.com/api/signUpOrSignIn',{
+      token:  authToken// Send proof in request body
+       // Send email in request body
+    });
     if (response.status == 200) {
       const data = response.data;
       localStorage.setItem("email", data.email);

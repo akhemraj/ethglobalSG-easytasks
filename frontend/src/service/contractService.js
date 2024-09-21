@@ -2,6 +2,7 @@
 
 import useWalletStore from "../store/wallet";
 import ABI from "../ABI.json";
+import { etherUnits, hexToBigInt } from "viem";
 const contractService = {
   async createTask(
     publicClient,
@@ -30,10 +31,10 @@ const contractService = {
 
   async submitOffer(publicClient, walletClient, taskId, offeredAmount) {
     try {
-      const walletClient = useWalletStore.getState().walletClient; // Access wallet from store
-      const publicClient = useWalletStore.getState().publicClient; // Access public client from store
+      // const walletClient = useWalletStore.getState().walletClient; // Access wallet from store
+      // const publicClient = useWalletStore.getState().publicClient; // Access public client from store
       const account = walletClient.account;
-
+      console.log('offered amount is ....', offeredAmount)
       const resHash = await walletClient.writeContract({
         address: "0x093873ae318faef01285ee689aa21e2809f99c3b",
         abi: ABI,
@@ -50,8 +51,8 @@ const contractService = {
 
   async acceptOffer(publicClient, walletClient, taskId, offerIndex) {
     try {
-      const walletClient = useWalletStore.getState().walletClient; // Access wallet from store
-      const publicClient = useWalletStore.getState().publicClient; // Access public client from store
+      // const walletClient = useWalletStore.getState().walletClient; // Access wallet from store
+      // const publicClient = useWalletStore.getState().publicClient; // Access public client from store
       const account = walletClient.account;
 
       const resHash = await walletClient.writeContract({
@@ -70,8 +71,7 @@ const contractService = {
 
   async markTaskAsCompleted(publicClient, walletClient, taskId) {
     try {
-      const walletClient = useWalletStore.getState().walletClient; // Access wallet from store
-      const publicClient = useWalletStore.getState().publicClient; // Access public client from store
+      // Access public client from store
       const account = walletClient.account;
 
       const resHash = await walletClient.writeContract({
@@ -90,7 +90,7 @@ const contractService = {
 
   async getAllTaskOffers(publicClient, walletClient, taskId) {
     try {
-      const publicClient = useWalletStore.getState().publicClient; // Access public client from store
+      // Access public client from store
       const taskOffers = await publicClient.readContract({
         address: "0x093873ae318faef01285ee689aa21e2809f99c3b",
         abi: ABI,

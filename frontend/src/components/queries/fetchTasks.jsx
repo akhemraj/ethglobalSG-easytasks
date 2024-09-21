@@ -58,7 +58,7 @@ function Tasks() {
               description={q.description}
               taskType={q.taskType}
               budget={parseFloat(q.budget) / 1000000}
-              isCreator={q.creator === primaryWallet?.address}
+              isCreator={q.creator.toLowerCase() === primaryWallet?.address.toLowerCase()}
             />
           ))}
         </div>

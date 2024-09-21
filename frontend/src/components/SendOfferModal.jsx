@@ -7,6 +7,13 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
+import {
+  DynamicContextProvider,
+  DynamicWidget,
+} from "@dynamic-labs/sdk-react-core";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import contractService from "../service/contractService";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -19,19 +26,43 @@ const style = {
   p: 4,
 };
 
-export default function SendOfferModal() {
+export default function SendOfferModal(taskId) {
+
+ 
+
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleClick = () => {
-    console.log("Sending offer...");
-  };
+ 
 
   const [value, setValue] = useState("");
 
   const handleChange = (event) => {
     setValue(event.target.value);
+  };
+
+
+
+  const { primaryWallet } = useDynamicContext();
+  const handleClick = async () => {
+    console.log('sending offer...');
+    const walletClient = await primaryWallet.getWalletClient();
+    const account = await walletClient.account;
+    const publicClient = await primaryWallet.getPublicClient();
+    console.log('comes here 1 .... ', primaryWallet);
+    const response = await contractService.submitOffer(
+      publicClient,
+      walletClient,
+      taskId,
+      value.toString()
+    );
+
+    primaryWallet.isConnected().then((value) => {
+      console.log(value);
+      console.log("WE ARE CONNECTED");
+    });
   };
 
   return (

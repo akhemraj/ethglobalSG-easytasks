@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import {EditableInput} from '../ui/EditableInput.js';
@@ -8,9 +8,32 @@ import {
 } from "@dynamic-labs/sdk-react-core";
 import { EthersExtension } from "@dynamic-labs/ethers-v5";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-
+import axios from 'axios';
 const TaskifyProfile = () => {
+
+
+
   const navigate = useNavigate();
+
+  const handleClick = async () => {
+    const authToken = localStorage.getItem('dynamic_authentication_token');
+    console.log('sending token to backend' , authToken);
+
+    const response = await axios.post('http://localhost:8000/api/signUpOrSignIn',{
+      token:  authToken// Send proof in request body
+       // Send email in request body
+    });
+    if (response.status == 200) {
+      const data = response.data;
+      localStorage.setItem("email", data.email );
+      navigate('/verify');
+    } else {
+      console.log("error occurred while calling api");
+    }
+    console.log('data from token', response);
+    
+   
+  }
 
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden font-['Manrope','Noto_Sans',sans-serif]">
@@ -84,7 +107,7 @@ const TaskifyProfile = () => {
             </div>
             <div className="flex px-4 py-3">
               <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 flex-1 bg-[#209cee] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]"
-                onClick={() => navigate('/verify')}
+                onClick={handleClick}
               >
                 <span className="truncate">Next</span>
               </button>

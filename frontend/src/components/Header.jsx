@@ -1,19 +1,5 @@
 // components/Header.js
-import {
-  DynamicContextProvider,
-  DynamicWidget,
-} from "@dynamic-labs/sdk-react-core";
-import { EthersExtension } from "@dynamic-labs/ethers-v5";
-import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import useWalletStore from "../store/wallet.jsx";
-
 const Header = () => {
-  const setWalletClient = useWalletStore((state) => {
-    console.log("state: ", state);
-    return state.setWalletClient;
-  });
-  const setPublicClient = useWalletStore((state) => state.setPublicClient);
-
   return (
     <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7eef3] px-10 py-3">
       <div className="flex items-center gap-4 text-[#0d161b]">
@@ -65,35 +51,6 @@ const Header = () => {
           >
             Help
           </a>
-
-          <DynamicContextProvider
-            settings={{
-              environmentId: "ed25802a-53aa-4165-9407-2906d615c0cd",
-              walletConnectorExtensions: [EthersExtension],
-              walletConnectors: [EthereumWalletConnectors],
-              events: {
-                onAuthSuccess: async (args) => {
-                  // console.log('onAuthSuccess was called', args);
-                  const { primaryWallet, user } = args;
-                  //create contract instance using ethers
-
-                  const publicClient = await primaryWallet.getPublicClient();
-                  const walletClient = await primaryWallet.getWalletClient();
-                  // console.log(setWalletClient, " < set wakket client");
-                  setWalletClient(walletClient); // Check if this actually sets the wallet correctly
-                  setPublicClient(publicClient);
-
-                  // Logging to ensure correct wallet data
-                  console.log("Wallet Client: ", walletClient);
-                  console.log("Public Client: ", publicClient);
-
-                  // you can get the jwt by calling the getAuthToken helper function
-                },
-              },
-            }}
-          >
-            <DynamicWidget />
-          </DynamicContextProvider>
         </div>
       </div>
     </header>

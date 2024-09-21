@@ -52,7 +52,6 @@ const TaskableWelcome = () => {
                 <div className="flex grow flex-col"><p className="text-[#0d161b] text-sm font-medium leading-normal">I want to help with tasks</p></div>
               </label>
               <button onClick={() => navigate('/profile')} className="bg-[#209cee] hover:bg-[#1a7fbf] text-white font-bold py-2 px-4 rounded-xl transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#209cee] focus:ring-opacity-50" >Create Profile</button>
-              
             </div>
           </div>
         </div>

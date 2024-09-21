@@ -6,20 +6,14 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
-import {
-  DynamicContextProvider,
-  DynamicWidget,
-} from "@dynamic-labs/sdk-react-core";
+import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
 import { EthersExtension } from "@dynamic-labs/ethers-v5";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import useWalletStore from "./store/wallet.jsx";
-import axios from "axios";
 
 import TaskableWelcome from "./components/TaskableWelcome";
 import TaskifyProfile from "./components/TaskifyProfile";
 import VerifyIdentity from "./components/VerifyIdentity";
 import Dashboard from "./components/dashboard";
-import DynamicProvider from "./components/DynamicProvider";
 
 export default function App() {
   return (
@@ -49,8 +43,6 @@ export default function App() {
             },
           }}
         >
-          {/* Render the MenuBar */}
-          {/* <MenuBar /> */}
           <Routes>
             <Route path="/" element={<TaskableWelcome />} />
             <Route path="/profile" element={<TaskifyProfile />} />

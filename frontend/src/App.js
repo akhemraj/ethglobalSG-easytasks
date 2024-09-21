@@ -1,18 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-=======
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import {
-  DynamicContextProvider,
-  DynamicWidget,
-} from "@dynamic-labs/sdk-react-core";
-import { EthersExtension } from "@dynamic-labs/ethers-v5";
-import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import TaskableWelcome from './components/TaskableWelcome';
-import TaskifyProfile from './components/TaskifyProfile'; 
-import VerifyIdentity from './components/VerifyIdentity';
->>>>>>> 6a43687 (added verify with worldcoin page)
 
 
 import TaskableWelcome from './components/TaskableWelcome';

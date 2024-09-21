@@ -1,6 +1,13 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import {EditableInput} from '../ui/EditableInput.js';
+import {
+  DynamicContextProvider,
+  DynamicWidget,
+} from "@dynamic-labs/sdk-react-core";
+import { EthersExtension } from "@dynamic-labs/ethers-v5";
+import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 
 const TaskifyProfile = () => {
   const navigate = useNavigate();
@@ -27,6 +34,17 @@ const TaskifyProfile = () => {
               <a className="text-[#0d161b] text-sm font-medium leading-normal" href="#">Post a task</a>
               <a className="text-[#0d161b] text-sm font-medium leading-normal" href="#">Earn money</a>
               <a className="text-[#0d161b] text-sm font-medium leading-normal" href="#">Help</a>
+              
+              <DynamicContextProvider
+      settings={{
+        environmentId: "ed25802a-53aa-4165-9407-2906d615c0cd",
+        walletConnectorExtensions: [EthersExtension],
+        walletConnectors: [EthereumWalletConnectors],
+      }}
+    >
+      <DynamicWidget />
+
+    </DynamicContextProvider>
             </div>
           </div>
         </header>
@@ -37,10 +55,8 @@ const TaskifyProfile = () => {
             <div className="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
               <label className="flex flex-col min-w-40 flex-1">
                 <p className="text-[#0d161b] text-base font-medium leading-normal pb-2">First name</p>
-                <input
-                  className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#0d161b] focus:outline-0 focus:ring-0 border border-[#cfdee7] bg-slate-50 focus:border-[#cfdee7] h-14 placeholder:text-[#4c7b9a] p-[15px] text-base font-normal leading-normal"
-                  value=""
-                />
+                <EditableInput/>
+              
               </label>
             </div>
             <h3 className="text-[#0d161b] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">What's your role?</h3>

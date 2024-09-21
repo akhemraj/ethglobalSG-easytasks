@@ -10,7 +10,13 @@ import TaskableWelcome from './components/TaskableWelcome';
 import TaskifyProfile from './components/TaskifyProfile'; 
 import VerifyIdentity from './components/VerifyIdentity';
 
-export default function App() {
+
+import TaskableWelcome from './components/TaskableWelcome';
+import TaskifyProfile from './components/TaskifyProfile'; 
+import VerifyIdentity from './components/VerifyIdentity';
+
+// Menubar component
+function MenuBar() {
   return (
     <DynamicContextProvider
       settings={{
@@ -31,3 +37,19 @@ export default function App() {
   );
 }
 
+export default function App() {
+  return (
+   
+      <Router>
+        {/* Render the MenuBar */}
+        {/* <MenuBar /> */}
+
+        <Routes>
+          <Route path="/" element={<TaskableWelcome />} />
+          <Route path="/profile" element={<TaskifyProfile />} />
+          <Route path="/verify" element={<VerifyIdentity />} />
+        </Routes>
+      </Router>
+    
+  );
+}

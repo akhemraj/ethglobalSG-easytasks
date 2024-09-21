@@ -56,19 +56,16 @@ export const userSignUpOrSignIn = async (req, res) => {
 
 export const verifyProof = async(req, res) => {
   try {
-    const proof = req.body
+    const {proof, email} = req.body
     const app_id = process.env.WORLD_APP_ID
     const action = process.env.WORLD_APP_ACTION_ID
     console.log(process.env.WORLD_APP_ID, process.env.WORLD_APP_ACTION_ID);
     const verifyRes = await verifyCloudProof(proof, app_id, action)
 
     if (verifyRes.success) {
-        // This is where you should perform backend actions if the verification succeeds
-        // Such as, setting a user as "verified" in a database
+        const user = await User.findOneAndUpdate({email}, {isVerified: true});
         res.status(200).send(verifyRes);
     } else {
-        // This is where you should handle errors from the World ID /verify endpoint. 
-        // Usually these errors are due to a user having already verified.
         res.status(400).send(verifyRes);
     }
   } catch (error) {

@@ -16,3 +16,4 @@
 # Hardhat Ignition default folder for deployments against a local node
 ignition/deployments/chain-31337
 smartcontracts/artifacts
+backend/node_modules/.package-lock.json

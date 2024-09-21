@@ -8,7 +8,6 @@ import Dashboard from "./dashboard";
 
 const TaskableWelcome = () => {
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState("need-help");
   const { user } = useDynamicContext();
 
   // Call API if user is logged in
@@ -67,20 +66,23 @@ const TaskableWelcome = () => {
           >
             <div />
 
-            <div className="layout-container flex h-full grow flex-col content-center	">
+            <div className="layout-container flex h-full flex-col content-center	">
+              <div className="@container">
+                <div className="@[480px]:px-4 @[480px]:py-3">
+                  <div
+                    className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-slate-50 @[480px]:rounded-xl min-h-[218px]"
+                    style={{
+                      backgroundImage:
+                        "url('https://cdn.usegalileo.ai/stability/3a4fa6b4-e090-4a48-8d12-ebc0833a4902.png')",
+                    }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="layout-container flex h-full grow flex-col content-center">
               <div className="px-40 flex flex-1 justify-center py-5">
-                <div className="layout-content-container flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
-                  <div className="@container">
-                    <div className="@[480px]:px-4 @[480px]:py-3">
-                      <div
-                        className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-slate-50 @[480px]:rounded-xl min-h-[218px]"
-                        style={{
-                          backgroundImage:
-                            "url('https://cdn.usegalileo.ai/stability/3a4fa6b4-e090-4a48-8d12-ebc0833a4902.png')",
-                        }}
-                      ></div>
-                    </div>
-                  </div>
+                <div className="layout-content-container items-center flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-1">
                   <h1 className="text-[#0d161b] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-center pb-3 pt-5">
                     Welcome to EasyTasks!
                   </h1>
@@ -90,7 +92,7 @@ const TaskableWelcome = () => {
                     describes you?
                   </p>
                   <div>
-                    <DynamicWidget class="content-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                    <DynamicWidget class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
                   </div>
                 </div>
               </div>

@@ -5,7 +5,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { gql, request } from "graphql-request";
+import { request } from "graphql-request";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";

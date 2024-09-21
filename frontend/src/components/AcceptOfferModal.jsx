@@ -31,8 +31,6 @@ export default function AcceptOfferModal({ offers }) {
     setIsPaymentSuccess(true);
   };
 
-  const [value, setValue] = useState("");
-
   const acceptedOffer = (offerId) => {
     setAcceptedId(offerId);
     alert(`Offer ${offerId} accepted!`);

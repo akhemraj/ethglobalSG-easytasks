@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Link,
   useNavigate,
 } from "react-router-dom";
 import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";

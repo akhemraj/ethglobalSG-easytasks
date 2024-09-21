@@ -38,12 +38,6 @@ const Header = () => {
             className="text-[#0d161b] text-sm font-medium leading-normal"
             href="#"
           >
-            Post a task
-          </a>
-          <a
-            className="text-[#0d161b] text-sm font-medium leading-normal"
-            href="#"
-          >
             Earn money
           </a>
           <a

@@ -17,3 +17,6 @@
 ignition/deployments/chain-31337
 smartcontracts/artifacts
 backend/node_modules/.package-lock.json
+
+# Frontend
+dump.jsx

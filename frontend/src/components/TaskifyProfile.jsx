@@ -2,27 +2,11 @@ import { ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { EditableInput } from "../ui/EditableInput.js";
 import Layout from "./Layout";
-import axios from "axios";
-import useWalletStore from "../store/wallet.jsx";
 
 const TaskifyProfile = () => {
   const navigate = useNavigate();
   const handleClick = async () => {
-    const authToken = localStorage.getItem("dynamic_authentication_token");
-    console.log("sending token to backend", authToken);
-
-    const response = await axios.post('https://ethglobalsg-easytasks-be-5b1fa77ae872.herokuapp.com/api/signUpOrSignIn',{
-      token:  authToken// Send proof in request body
-       // Send email in request body
-    });
-    if (response.status == 200) {
-      const data = response.data;
-      localStorage.setItem("email", data.email);
-      navigate("/verify");
-    } else {
-      console.log("error occurred while calling api");
-    }
-    console.log("data from token", response);
+    navigate("/verify");
   };
 
   return (

@@ -31,12 +31,15 @@ export default function AcceptOfferModal() {
   const [value, setValue] = useState("");
 
   const handleChange = (event) => {
+    console.log("Accepting offer...");
     setValue(event.target.value);
   };
 
   return (
     <div>
-      <Button onClick={handleOpen}>Send Offer</Button>
+      <Button color="success" onClick={handleOpen}>
+        Accept Offer
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

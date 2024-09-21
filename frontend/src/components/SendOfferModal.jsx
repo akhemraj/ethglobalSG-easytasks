@@ -36,7 +36,9 @@ export default function SendOfferModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Send Offer</Button>
+      <Button color="secondary" onClick={handleOpen}>
+        Send Offer
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

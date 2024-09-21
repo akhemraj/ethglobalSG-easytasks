@@ -24,7 +24,7 @@ const Header = () => {
         <div className="flex items-center gap-9">
           <a
             className="text-[#0d161b] text-sm font-medium leading-normal"
-            href="#"
+            href="/"
           >
             Home
           </a>

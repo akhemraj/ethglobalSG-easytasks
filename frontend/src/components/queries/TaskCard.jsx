@@ -7,12 +7,10 @@ import Typography from "@mui/material/Typography";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import SendOfferModal from "../SendOfferModal";
+import AcceptOfferModal from "../AcceptOfferModal";
 
 const TaskCard = ({ title, description, taskType, budget, isCreator }) => {
-  const handleClick = () => {
-    console.log("Sending offer...");
-  };
-
   return (
     <Card style={{ maxWidth: 345, margin: "20px auto" }}>
       <CardContent>
@@ -40,15 +38,7 @@ const TaskCard = ({ title, description, taskType, budget, isCreator }) => {
       </CardContent>
 
       <CardActions>
-        {isCreator ? (
-          <Button size="small" color="success" onClick={handleClick}>
-            Accept Offer
-          </Button>
-        ) : (
-          <Button size="small" color="secondary" onClick={handleClick}>
-            Send Offer
-          </Button>
-        )}
+        {isCreator ? <AcceptOfferModal /> : <SendOfferModal />}
       </CardActions>
     </Card>
   );

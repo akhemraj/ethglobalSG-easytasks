@@ -42,9 +42,6 @@ const Dashboard = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <p class="text-red-500 text-xs italic">
-                  Please fill out this field.
-                </p>
               </div>
               <div class="w-full md:w-md px-3">
                 <label

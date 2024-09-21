@@ -2,10 +2,15 @@ import {
   DynamicContextProvider,
   DynamicWidget,
 } from "@dynamic-labs/sdk-react-core";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Routes, Route } from "react-router-dom";
 import { EthersExtension } from "@dynamic-labs/ethers-v5";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import axios from "axios";
+
+import TaskableWelcome from "./TaskableWelcome";
+import TaskifyProfile from "./TaskifyProfile";
+import VerifyIdentity from "./VerifyIdentity";
+import Dashboard from "./dashboard";
 
 const DynamicProvider = () => {
   const navigate = useNavigate();
@@ -66,6 +71,12 @@ const DynamicProvider = () => {
     }}
   >
     <DynamicWidget />
+    <Routes>
+      <Route path="/" element={<TaskableWelcome />} />
+      <Route path="/profile" element={<TaskifyProfile />} />
+      <Route path="/verify" element={<VerifyIdentity />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
   </DynamicContextProvider>;
 };
 

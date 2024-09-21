@@ -25,7 +25,7 @@ const TaskableWelcome = () => {
     );
 
     if (response.status === 200) {
-      console.log("RESPONSE:", response);
+      console.log("RESPONSE1231231233:", response);
 
       localStorage.setItem("email", response.data.email);
 
@@ -45,9 +45,9 @@ const TaskableWelcome = () => {
     }
   };
 
-  // if (user !== null && typeof user !== "undefined") {
-  //   checkUser(user);
-  // }
+  if (user !== null && typeof user !== "undefined") {
+    checkUser(user);
+  }
 
   // Show dashboard if user is logged in via Dynamic
   return (

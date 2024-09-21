@@ -22,6 +22,7 @@ const Dashboard = () => {
 
   // Handling form submission
   const handleCreateTask = async () => {
+    console.log('create task')
     const walletClient = await primaryWallet.getWalletClient();
     const account = await walletClient.account;
     const publicClient = await primaryWallet.getPublicClient();

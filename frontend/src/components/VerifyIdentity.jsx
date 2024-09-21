@@ -5,17 +5,24 @@ import axios from 'axios';
 import { IDKitWidget, VerificationLevel } from '@worldcoin/idkit'
 import useWalletStore from '../store/wallet.jsx';
 
+import apiService from '../service/apiService.js';
 
 const VerifyIdentity = () => {
   const navigate = useNavigate();
   const email = localStorage.getItem('email');
   const wallet = useWalletStore((state) => state.getWallet());
-  console.log('wallet is: ', wallet, window.dynamicWalletClient);
+  // console.log('wallet is: ', wallet, window.dynamicWalletClient);
 
+
+  const handleClickButton = async () => {
+    console.log('button clicked');
+    const response = await apiService.signInUser();
+  }
   const onSuccess = async (data) => {
     console.log("world id verification success", data);
     // Extract proof and email from the data object (adjust based on actual data structure)
-   
+    
+    
   
     try {
       const response = await axios.post('http://localhost:8000/api/verifyProof', {
@@ -24,6 +31,9 @@ const VerifyIdentity = () => {
          email
       });
   
+
+
+      
       // If the request is successful
       console.log('Proof verification successful:', response.data);
       if (response.status == 200) {
@@ -81,7 +91,7 @@ const VerifyIdentity = () => {
         onClick={open}><span className="truncate">Verify with World ID</span></button>}
       </IDKitWidget>
 
-
+    <button onClick={handleClickButton}> click this button sample</button>
 
                 
             </div>

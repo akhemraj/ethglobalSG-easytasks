@@ -46,6 +46,7 @@ function MenuBar() {
 export default function App() {
   return (
     <>
+    <Router>
     <DynamicContextProvider
           settings={{
             environmentId: "ed25802a-53aa-4165-9407-2906d615c0cd",
@@ -69,24 +70,17 @@ export default function App() {
             },
           }}
         >
-           
-      <Router>
-        {/* Render the MenuBar */}
-        {/* <MenuBar /> */}
-        <><DynamicWidget /></>
-        <Routes>
-          <Route path="/" element={<TaskableWelcome />} />
-          <Route path="/profile" element={<TaskifyProfile />} />
-          <Route path="/verify" element={<VerifyIdentity />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route></Route>
-        </Routes>
-        {/* <DynamicProvider /> */}
-        {/* const navigate = useNavigate(); */}
-        
-         
+          {/* Render the MenuBar */}
+          {/* <MenuBar /> */}
+          <Routes>
+            <Route path="/" element={<TaskableWelcome />} />
+            <Route path="/profile" element={<TaskifyProfile />} />
+            <Route path="/verify" element={<VerifyIdentity />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </DynamicContextProvider>
       </Router>
-      </DynamicContextProvider>
+      
 
     </>
   );

@@ -1,45 +1,68 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/base/Button';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { gql, request } from 'graphql-request';
+import {
+  useQuery,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { gql, request } from "graphql-request";
+import TaskCard from "./TaskCard";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
-const queryForFirstTenTasks = gql`{
-  taskCreateds(first: 10) {
-    taskType
-    title
-    taskId
-    transactionHash
-    id
-    description
-    creator
-    budget
-    blockNumber
-    blockTimestamp
+const queryForFirstTenTasks = gql`
+  {
+    taskCreateds(first: 10) {
+      taskType
+      title
+      taskId
+      transactionHash
+      id
+      description
+      creator
+      budget
+      blockNumber
+      blockTimestamp
+    }
   }
-}`
+`;
 
-
-const url = 'https://api.studio.thegraph.com/query/89506/easytasks_v1/version/latest';
-
+const url =
+  "https://api.studio.thegraph.com/query/89506/easytasks_v1/version/latest";
 
 function Tasks() {
   const { data, status } = useQuery({
-    queryKey: ['data'],
+    queryKey: ["data"],
     async queryFn() {
-      return await request(url, queryForFirstTenTasks)
-    }
-  })
+      return await request(url, queryForFirstTenTasks);
+    },
+  });
 
+  console.log("TASKS DATA:", JSON.stringify(data ?? {}));
+  const { primaryWallet } = useDynamicContext();
 
   return (
-    <main>
-      {status === 'pending' ? <div>Loading...</div> : null}
-      {status === 'error' ? <div>Error ocurred querying the Subgraph</div> : null}
-      <div>{JSON.stringify(data ?? {})}</div>
-    </main>
-  )
+    <>
+      {status === "pending" ? <div>Loading...</div> : null}
+      {status === "error" ? (
+        <div>Error ocurred querying the Subgraph</div>
+      ) : null}
+
+      <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
+        <div className="flex flex-wrap justify-center items-center gap-12 flex-col sm:flex-row">
+          {data?.taskCreateds?.map((q) => (
+            <TaskCard
+              title={q.title}
+              description={q.description}
+              taskType={q.taskType}
+              budget={parseFloat(q.budget) / 1000000}
+              isCreator={q.creator === primaryWallet?.address}
+            />
+          ))}
+        </div>
+      </div>
+    </>
+  );
 }
 
 const queryClient = new QueryClient({
@@ -50,14 +73,12 @@ const queryClient = new QueryClient({
   },
 });
 
-
-
 const FetchTasks = () => {
   return (
     <>
-    <QueryClientProvider client={queryClient}>
-      <Tasks />
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <Tasks />
+      </QueryClientProvider>
     </>
   );
 };

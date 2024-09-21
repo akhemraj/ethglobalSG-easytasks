@@ -2,12 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 import FetchTasks from "./queries/fetchTasks";
-import {
-  DynamicContextProvider,
-  DynamicWidget,
-} from "@dynamic-labs/sdk-react-core";
-import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import contractService from "../service/contractService";
 
 const Dashboard = () => {
   const navigate = useNavigate();

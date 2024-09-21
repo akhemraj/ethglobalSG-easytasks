@@ -16,7 +16,7 @@ const Dashboard = () => {
     console.log("Title: ", title);
     console.log("Description: ", description);
     console.log("Task Type: ", taskType);
-    console.log("Budget: ", budget);
+    console.log("Budget: ", budget * 1000000);
   };
 
   return (

@@ -1,7 +1,10 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const TaskifyProfile = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden font-['Manrope','Noto_Sans',sans-serif]">
       <div className="layout-container flex h-full grow flex-col">
@@ -15,7 +18,7 @@ const TaskifyProfile = () => {
                 />
               </svg>
             </div>
-            <h2 className="text-[#0d161b] text-lg font-bold leading-tight tracking-[-0.015em]">Taskify</h2>
+            <h2 className="text-[#0d161b] text-lg font-bold leading-tight tracking-[-0.015em]">EasyTasks</h2>
           </div>
           <div className="flex flex-1 justify-end gap-8">
             <div className="flex items-center gap-9">
@@ -25,9 +28,6 @@ const TaskifyProfile = () => {
               <a className="text-[#0d161b] text-sm font-medium leading-normal" href="#">Earn money</a>
               <a className="text-[#0d161b] text-sm font-medium leading-normal" href="#">Help</a>
             </div>
-            <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#209cee] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]">
-              <span className="truncate">Sign up</span>
-            </button>
           </div>
         </header>
         <div className="px-40 flex flex-1 justify-center py-5">
@@ -67,7 +67,9 @@ const TaskifyProfile = () => {
               </label>
             </div>
             <div className="flex px-4 py-3">
-              <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 flex-1 bg-[#209cee] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]">
+              <button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 flex-1 bg-[#209cee] text-slate-50 text-sm font-bold leading-normal tracking-[0.015em]"
+                onClick={() => navigate('/verify')}
+              >
                 <span className="truncate">Next</span>
               </button>
             </div>

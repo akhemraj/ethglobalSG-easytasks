@@ -7,11 +7,42 @@ import Typography from "@mui/material/Typography";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import contractService from "../../service/contractService";
+import SubmittedOfferByTaskId from "./SubmittedOfferByTaskId";
 
-const TaskCard = ({ title, description, taskType, budget, isCreator }) => {
-  const handleClick = () => {
+
+const TaskCard = ({ taskId, title, description, taskType, budget, isCreator }) => {
+  const { primaryWallet } = useDynamicContext();
+
+
+  const handleSendOfferClick = async () => {
     console.log("Sending offer...");
+
+  
   };
+
+  const handleAcceptOfferClick = async () => {
+    console.log("accepting offer...");
+
+    // const walletClient = await primaryWallet.getWalletClient();
+    // const account = await walletClient.account;
+    // const publicClient = await primaryWallet.getPublicClient();
+    // const response = await contractService.createTask(
+    //   publicClient,
+    //   walletClient,
+    //  taskId,
+    //  offerIndex
+    // );
+
+    // primaryWallet.isConnected().then((value) => {
+    //   console.log(value);
+    //   console.log("WE ARE CONNECTED");
+    // });
+
+  };
+
+  
 
   return (
     <Card style={{ maxWidth: 345, margin: "20px auto" }}>
@@ -41,11 +72,14 @@ const TaskCard = ({ title, description, taskType, budget, isCreator }) => {
 
       <CardActions>
         {isCreator ? (
-          <Button size="small" color="success" onClick={handleClick}>
+         <> <SubmittedOfferByTaskId taskId={taskId}/>
+
+          <Button size="small" color="success" onClick={() => handleAcceptOfferClick()}>
             Accept Offer
-          </Button>
+
+          </Button></>
         ) : (
-          <Button size="small" color="secondary" onClick={handleClick}>
+          <Button size="small" color="secondary" onClick={handleSendOfferClick}>
             Send Offer
           </Button>
         )}

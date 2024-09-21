@@ -52,11 +52,12 @@ function Tasks() {
         <div className="flex flex-wrap justify-center items-center gap-12 flex-col sm:flex-row">
           {data?.taskCreateds?.map((q) => (
             <TaskCard
+              taskId={q.taskId}
               title={q.title}
               description={q.description}
               taskType={q.taskType}
               budget={parseFloat(q.budget) / 1000000}
-              isCreator={q.creator === primaryWallet?.address}
+              isCreator={q.creator.toLowerCase() === primaryWallet?.address.toLowerCase()}
             />
           ))}
         </div>

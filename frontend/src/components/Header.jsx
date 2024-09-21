@@ -29,7 +29,7 @@ const Header = () => {
           </a>
           <a
             className="text-[#0d161b] text-sm font-medium leading-normal"
-            href="#"
+            href="/dashboard"
           >
             Browse tasks
           </a>

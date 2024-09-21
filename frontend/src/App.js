@@ -49,8 +49,6 @@ export default function App() {
             },
           }}
         >
-          <DynamicWidget />
-
           {/* Render the MenuBar */}
           {/* <MenuBar /> */}
           <Routes>

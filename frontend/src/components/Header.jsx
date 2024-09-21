@@ -1,4 +1,5 @@
-// components/Header.js
+import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
+
 const Header = () => {
   return (
     <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7eef3] px-10 py-3">
@@ -19,7 +20,7 @@ const Header = () => {
           EasyTasks
         </h2>
       </div>
-      <div className="flex flex-1 justify-end gap-8">
+      <div className="flex flex-1 justify-end gap-8 mr-6">
         <div className="flex items-center gap-9">
           <a
             className="text-[#0d161b] text-sm font-medium leading-normal"
@@ -53,6 +54,7 @@ const Header = () => {
           </a>
         </div>
       </div>
+      <DynamicWidget />
     </header>
   );
 };

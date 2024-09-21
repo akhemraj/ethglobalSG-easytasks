@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
+import FetchTasks from "./queries/fetchTasks";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -117,9 +118,9 @@ const Dashboard = () => {
               Create Task
             </button>
           </form>
-
           <h2 class="text-lg font-semibold mt-6">Browse</h2>
           {/* Display list of tasks here */}
+          <FetchTasks />
         </div>
       </div>
     </Layout>

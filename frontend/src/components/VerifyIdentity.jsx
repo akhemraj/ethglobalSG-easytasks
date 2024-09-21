@@ -7,16 +7,23 @@ import { IDKitWidget, VerificationLevel } from "@worldcoin/idkit";
 import useWalletStore from "../store/wallet.jsx";
 
 import apiService from "../service/apiService.js";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 const VerifyIdentity = () => {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
   const wallet = useWalletStore((state) => state.getWallet());
+  const { primaryWallet } = useDynamicContext();
   // console.log('wallet is: ', wallet, window.dynamicWalletClient);
 
   const handleClickButton = async () => {
     console.log("button clicked");
     const response = await apiService.signInUser();
+
+    primaryWallet.isConnected().then((value) => {
+      console.log(value);
+      console.log("WE ARE CONNECTED");
+    });
   };
   const onSuccess = async (data) => {
     console.log("world id verification success", data);

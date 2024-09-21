@@ -20,6 +20,7 @@ const Dashboard = () => {
   };
 
   return (
+<<<<<<< HEAD
     <Layout>
       <div className="relative flex size-md min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden font-['Manrope','Noto_Sans',sans-serif]">
         <div className="layout-container flex h-full grow flex-col items-center">
@@ -127,3 +128,11 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+=======
+    <>
+      <FetchOffers/>
+      
+    </>
+  )
+}
+>>>>>>> b244317 (merge changes)

@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function AcceptOfferModal() {
+export default function AcceptOfferModal({ offers }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -34,6 +34,8 @@ export default function AcceptOfferModal() {
     console.log("Accepting offer...");
     setValue(event.target.value);
   };
+
+  const acceptedOffer = (offerId) => {};
 
   return (
     <div>
@@ -57,6 +59,13 @@ export default function AcceptOfferModal() {
           <Box sx={style}>
             <form class="w-full max-w-lg flex flex-col items-center">
               {/* DISPLAY OFFERS HERE */}
+              {offers.map((item, index) => (
+                <div key={item.id} onClick={() => acceptedOffer(item.id)}>
+                  <h2>{item.taskId}</h2>
+                  <p>Amount: {item.offerAmount}</p>
+                </div>
+              ))}
+
               <Button className="mt-3" color="success" onClick={handleClick}>
                 Initiate Payment
               </Button>

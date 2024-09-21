@@ -7,9 +7,9 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import SendOfferModal from "../SendOfferModal";
-import AcceptOfferModal from "../AcceptOfferModal";
+import SubmittedOfferByTaskId from "./SubmittedOfferByTaskId";
 
-const TaskCard = ({ title, description, taskType, budget, isCreator }) => {
+const TaskCard = ({ id, title, description, taskType, budget, isCreator }) => {
   return (
     <Card style={{ maxWidth: 345, margin: "20px auto" }}>
       <CardContent>
@@ -37,7 +37,12 @@ const TaskCard = ({ title, description, taskType, budget, isCreator }) => {
       </CardContent>
 
       <CardActions>
-        {isCreator ? <AcceptOfferModal /> : <SendOfferModal />}
+        {isCreator ? (
+          <SubmittedOfferByTaskId taskId={id} />
+        ) : (
+          // <SendOfferModal />
+          <SubmittedOfferByTaskId taskId={id} />
+        )}
       </CardActions>
     </Card>
   );

@@ -20,6 +20,7 @@ import TaskifyProfile from "./components/TaskifyProfile";
 import VerifyIdentity from "./components/VerifyIdentity";
 import Dashboard from "./components/dashboard";
 import DynamicProvider from "./components/DynamicProvider";
+import TaskDetails from "./components/taskDetails.jsx";
 
 // Menubar component
 function MenuBar() {
@@ -45,18 +46,7 @@ function MenuBar() {
 export default function App() {
   return (
     <>
-      <Router>
-        {/* Render the MenuBar */}
-        {/* <MenuBar /> */}
-        <Routes>
-          <Route path="/" element={<TaskableWelcome />} />
-          <Route path="/profile" element={<TaskifyProfile />} />
-          <Route path="/verify" element={<VerifyIdentity />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-        {/* <DynamicProvider /> */}
-        const navigate = useNavigate();
-        <DynamicContextProvider
+    <DynamicContextProvider
           settings={{
             environmentId: "ed25802a-53aa-4165-9407-2906d615c0cd",
             walletConnectorExtensions: [EthersExtension],
@@ -79,10 +69,25 @@ export default function App() {
             },
           }}
         >
-          <DynamicWidget />
-        </DynamicContextProvider>
-        ;
+           
+      <Router>
+        {/* Render the MenuBar */}
+        {/* <MenuBar /> */}
+        <><DynamicWidget /></>
+        <Routes>
+          <Route path="/" element={<TaskableWelcome />} />
+          <Route path="/profile" element={<TaskifyProfile />} />
+          <Route path="/verify" element={<VerifyIdentity />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route></Route>
+        </Routes>
+        {/* <DynamicProvider /> */}
+        {/* const navigate = useNavigate(); */}
+        
+         
       </Router>
+      </DynamicContextProvider>
+
     </>
   );
 }

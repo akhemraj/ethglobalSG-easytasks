@@ -24,7 +24,7 @@ const TaskableWelcome = () => {
                 ></div>
               </div>
             </div>
-            <h1 className="text-[#0d161b] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-center pb-3 pt-5">Welcome to Taskable!</h1>
+            <h1 className="text-[#0d161b] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-center pb-3 pt-5">Welcome to EasyTasks!</h1>
             <p className="text-[#0d161b] text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">
               Taskable is a platform for people to help each other by sharing tasks and earning money. Which of the following best describes you?
             </p>
@@ -51,7 +51,7 @@ const TaskableWelcome = () => {
                 />
                 <div className="flex grow flex-col"><p className="text-[#0d161b] text-sm font-medium leading-normal">I want to help with tasks</p></div>
               </label>
-              <button onClick={() => navigate('/profile')}>Create Profile</button>
+              <button onClick={() => navigate('/profile')} className="bg-[#209cee] hover:bg-[#1a7fbf] text-white font-bold py-2 px-4 rounded-xl transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#209cee] focus:ring-opacity-50" >Create Profile</button>
             </div>
           </div>
         </div>

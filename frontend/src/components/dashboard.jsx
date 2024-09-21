@@ -24,7 +24,7 @@ const Dashboard = () => {
     <Layout>
       <div className="relative flex size-md min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden font-['Manrope','Noto_Sans',sans-serif]">
         <div className="layout-container flex h-full grow flex-col items-center">
-          <h2 class="text-lg font-semibold my-3">Create</h2>
+          <h2 class="text-2xl font-semibold my-3">Create</h2>
           <form class="w-full max-w-lg flex flex-col items-center">
             <div class="flex flex-wrap -mx-3 mb-6">
               <div class="w-full px-3 mb-6 md:mb-0">
@@ -115,7 +115,6 @@ const Dashboard = () => {
               Create Task
             </button>
           </form>
-          <h2 class="text-lg font-semibold mt-6">Browse</h2>
           {/* Display list of tasks here */}
           <FetchTasks />
         </div>

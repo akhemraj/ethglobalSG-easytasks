@@ -1,29 +1,15 @@
-// src/services/apiService.js
+// src/services/contractService.js
 
 import axios from 'axios';
 import useWalletStore from '../store/wallet';
 import ABI from'../ABI.json';
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 const contractService = {
   
-  async createTask(title, description, type, amountInWei) {
+  async createTask(publicClient, walletClient,title, description, type, amountInWei) {
     try {
-      const walletClient = useWalletStore.getState().walletClient; // Access wallet from store
-      const publicClient = useWalletStore.getState().publicClient; // Access public client from store
-      console.log('Wallet Client:', walletClient);
-      
-      console.log('Public Client:', publicClient);
       const account = walletClient.account;
       
-      console.log("account", account);
-
-      const transaction = {
-        to: "0xE783ad5904f6aa2664eB6bDDa0e01ec1DD8e9848",
-        value: 1,
-      };
-  
-      const hash = await walletClient.sendTransaction(transaction);
-      console.log('hash', hash);
-
       const resHash = await walletClient.writeContract({
         address: '0x093873ae318faef01285ee689aa21e2809f99c3b',
         abi: ABI,
@@ -31,7 +17,6 @@ const contractService = {
         args: [title, description, type, amountInWei ],
         account,
       })
-      console.log("asdas")
       console.log("resHash", resHash);
 
     } catch (error) {
@@ -41,7 +26,7 @@ const contractService = {
     
   },
 
-  async submitOffer(taskId, offeredAmount) {
+  async submitOffer(publicClient, walletClient, taskId, offeredAmount) {
     try {
       const walletClient = useWalletStore.getState().walletClient; // Access wallet from store
       const publicClient = useWalletStore.getState().publicClient; // Access public client from store
@@ -61,7 +46,7 @@ const contractService = {
     }
   },
 
-  async acceptOffer(taskId, offerIndex) {
+  async acceptOffer(publicClient, walletClient, taskId, offerIndex) {
     try {
       const walletClient = useWalletStore.getState().walletClient; // Access wallet from store
       const publicClient = useWalletStore.getState().publicClient; // Access public client from store
@@ -81,7 +66,7 @@ const contractService = {
     }
   },
 
-  async markTaskAsCompleted(taskId) {
+  async markTaskAsCompleted(publicClient, walletClient, taskId) {
     try {
       const walletClient = useWalletStore.getState().walletClient; // Access wallet from store
       const publicClient = useWalletStore.getState().publicClient; // Access public client from store
@@ -101,7 +86,7 @@ const contractService = {
     }
   },
 
-  async getAllTaskOffers(taskId) {
+  async getAllTaskOffers(publicClient, walletClient, taskId) {
     try {
       const publicClient = useWalletStore.getState().publicClient; // Access public client from store
       const taskOffers = await publicClient.readContract({

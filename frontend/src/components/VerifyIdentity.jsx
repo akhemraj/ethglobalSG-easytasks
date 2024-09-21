@@ -7,17 +7,26 @@ import { IDKitWidget, VerificationLevel } from "@worldcoin/idkit";
 import useWalletStore from "../store/wallet.jsx";
 
 import contractService from '../service/contractService.js';
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 const VerifyIdentity = () => {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
-  const wallet = useWalletStore((state) => state.getWallet());
-  // console.log('wallet is: ', wallet, window.dynamicWalletClient);
 
-  const handleClickButton = async () => {
-    console.log('button clicked');
-    const response = await contractService.createTask();
-  }
+  const {primaryWallet} = useDynamicContext();
+  
+
+  const handleCreateTask = async () => {
+    const walletClient = await primaryWallet.getWalletClient();
+    const account = await walletClient.account;
+    const publicClient = await primaryWallet.getPublicClient();
+    const response = await contractService.createTask(publicClient, walletClient, "t1", "d1", 1, "100");
+
+    primaryWallet.isConnected().then((value) => {
+      console.log(value);
+      console.log("WE ARE CONNECTED");
+    });
+  };
   const onSuccess = async (data) => {
     console.log("world id verification success", data);
     // Extract proof and email from the data object (adjust based on actual data structure)
@@ -89,7 +98,7 @@ const VerifyIdentity = () => {
                   )}
                 </IDKitWidget>
 
-                <button onClick={handleClickButton}>
+                <button onClick={handleCreateTask}>
                   {" "}
                   click this button sample
                 </button>

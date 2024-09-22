@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 import FetchTasks from "./queries/fetchTasks";
+import {
+  DynamicContextProvider,
+  DynamicWidget,
+} from "@dynamic-labs/sdk-react-core";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import contractService from "../service/contractService";
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -11,13 +18,27 @@ const Dashboard = () => {
   const [taskType, setTaskType] = useState("");
   const [budget, setBudget] = useState("");
 
+  const { primaryWallet } = useDynamicContext();
+
   // Handling form submission
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent the form from refreshing the page
-    console.log("Title: ", title);
-    console.log("Description: ", description);
-    console.log("Task Type: ", taskType);
-    console.log("Budget: ", budget * 1000000);
+  const handleCreateTask = async () => {
+    console.log('create task')
+    const walletClient = await primaryWallet.getWalletClient();
+    const account = await walletClient.account;
+    const publicClient = await primaryWallet.getPublicClient();
+    const response = await contractService.createTask(
+      publicClient,
+      walletClient,
+      title,
+      description,
+      taskType,
+      budget * 1000000
+    );
+
+    primaryWallet.isConnected().then((value) => {
+      console.log(value);
+      console.log("WE ARE CONNECTED");
+    });
   };
 
   return (
@@ -109,7 +130,7 @@ const Dashboard = () => {
             </div>
 
             <button
-              onClick={handleSubmit}
+              onClick={handleCreateTask}
               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Create Task

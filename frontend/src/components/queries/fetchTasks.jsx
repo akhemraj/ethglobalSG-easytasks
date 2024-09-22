@@ -49,16 +49,19 @@ function Tasks() {
       ) : null}
 
       <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-        <h1 class="text-3xl text-center font-semibold mt-6">Browse</h1>
-        <div className="flex flex-wrap justify-center items-center gap-12 flex-col sm:flex-row">
+        <h1 className="text-3xl text-center font-semibold mt-6">Browse</h1>
+        <div className=" gap-12 flex-col sm:flex-row">
           {data?.taskCreateds?.map((q) => (
+            console.log(q),
             <TaskCard
+              key={q.id} 
               id={q.id}
+              taskId={q.taskId}
               title={q.title}
               description={q.description}
               taskType={q.taskType}
               budget={parseFloat(q.budget) / 1000000}
-              isCreator={q.creator === primaryWallet?.address}
+              isCreator={q.creator.toLowerCase() === primaryWallet?.address.toLowerCase()}
             />
           ))}
         </div>

@@ -9,7 +9,7 @@ import Switch from "@mui/material/Switch";
 import SendOfferModal from "../SendOfferModal";
 import SubmittedOfferByTaskId from "./SubmittedOfferByTaskId";
 
-const TaskCard = ({ id, title, description, taskType, budget, isCreator }) => {
+const TaskCard = ({ id, taskId, title, description, taskType, budget, isCreator }) => {
   return (
     <Card style={{ maxWidth: 345, margin: "20px auto" }}>
       <CardContent>
@@ -21,9 +21,11 @@ const TaskCard = ({ id, title, description, taskType, budget, isCreator }) => {
         </Typography>
         <FormGroup>
           {parseInt(taskType) === 1 ? (
-            <FormControlLabel control={<Switch checked />} label="Online" />
+            'Offline'
+            // <FormControlLabel control={<Switch checked />} label="Online" />
           ) : (
-            <FormControlLabel control={<Switch />} label="Online" />
+            'Online'
+            // <FormControlLabel control={<Switch />} label="Online" />
           )}
         </FormGroup>
         <Typography variant="body3" color="primary">
@@ -38,9 +40,9 @@ const TaskCard = ({ id, title, description, taskType, budget, isCreator }) => {
 
       <CardActions>
         {isCreator ? (
-          <SubmittedOfferByTaskId taskId={id} />
+          <SubmittedOfferByTaskId taskId={taskId} />
         ) : (
-          <SendOfferModal />
+          <SendOfferModal taskId={taskId}/>
         )}
       </CardActions>
     </Card>
